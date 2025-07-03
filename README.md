@@ -1,18 +1,17 @@
 # Backend Setup Guide
 
-## Database Setup
+## Copy environment example
 
-1. Open **SQL Server Management Studio** or **Azure Data Studio**.
-2. Create a new database (e.g., `product_crud_db`).
-3. Run the SQL script located at `backend/database.sql` to create the `PRODUCTS` table and insert sample data.
-
----
+```sh
+cp .env.example .env
+```
 
 ## Running SQL Server in a Docker Container
 
 **Start SQL Server:**
+
 ```sh
-docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=YourDatabasePassword" \
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Root@123" \
   -p 1433:1433 --name sqlserver \
   -d mcr.microsoft.com/mssql/server:2022-latest
 ```
@@ -30,8 +29,22 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=YourDatabasePassword" \
    cd /opt/mssql-tools18/bin
    ```
 3. Connect to the database:
+
    ```sh
    ./sqlcmd -S localhost -U SA -P "Root@123" -N -C
+   ```
+
+4. View database
+
+   ```sh
+   select name from sys.databases;
+   go
+   ```
+
+5. Create data name `product_crud_app`
+   ```sh
+   create database product_crud_app;
+   go
    ```
 
 ---
